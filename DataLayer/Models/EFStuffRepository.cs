@@ -1,34 +1,50 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DataLayer
 {
     public class EFStuffRepository : IStuffRepository
     {
-        public void AddStuff(Stuff stuff)
+        private readonly ConnectionContext ctx;
+        public EFStuffRepository(ConnectionContext context)
         {
-            throw new NotImplementedException();
+            ctx = context;
+        }
+        public async void AddStuff(Stuff stuff)
+        {
+            ctx.AllStuff.Add(stuff);
+            await ctx.SaveChangesAsync();
         }
 
-        public void DeleteStuff(int id)
+        public async void DeleteStuff(int id)
         {
-            throw new NotImplementedException();
+            var stuff = ctx.AllStuff.Where(s => s.StuffId == id).FirstOrDefault();
+            if (stuff != null)
+            {
+                ctx.AllStuff.Remove(stuff);
+                await ctx.SaveChangesAsync();
+            }
         }
 
-        public IEnumerable<Stuff> GetAllStuff()
+        public async  Task<IEnumerable<Stuff>> GetAllStuff()
         {
-            throw new NotImplementedException();
+            return ctx.AllStuff.Include(s => s.Category);
         }
 
-        public Stuff GetCurrentStuff(int id)
+        public async Task<Stuff> GetCurrentStuff(int id)
         {
-            throw new NotImplementedException();
+            
+            return await ctx.AllStuff.Where(s => s.StuffId == id).FirstOrDefaultAsync(); ;
         }
 
-        public void UpdateStuff(Stuff stuff, int id)
+        public async void UpdateStuff(Stuff stuff, int id)
         {
-            throw new NotImplementedException();
+            ctx.AllStuff.Update(stuff);
+            await ctx.SaveChangesAsync();
         }
     }
 }
