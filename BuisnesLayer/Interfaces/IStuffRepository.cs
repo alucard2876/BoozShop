@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer
+namespace BuisnesLayer.Interfaces
 {
     public interface IStuffRepository
     {

@@ -1,11 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BuisnesLayer.Interfaces;
+using DataLayer;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IStuffRepository = BuisnesLayer.Interfaces.IStuffRepository;
 
-namespace DataLayer
+namespace BuisnesLayer.Impliment
 {
     public class EFStuffRepository : IStuffRepository
     {
@@ -30,14 +33,14 @@ namespace DataLayer
             }
         }
 
-        public async  Task<IEnumerable<Stuff>> GetAllStuff()
+        public async Task<IEnumerable<Stuff>> GetAllStuff()
         {
             return ctx.AllStuff.Include(s => s.Category);
         }
 
         public async Task<Stuff> GetCurrentStuff(int id)
         {
-            
+
             return await ctx.AllStuff.Where(s => s.StuffId == id).FirstOrDefaultAsync(); ;
         }
 

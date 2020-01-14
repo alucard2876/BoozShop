@@ -10,7 +10,7 @@ namespace DataLayer
         public DbSet<Stuff> AllStuff { get; set; }
         public DbSet<Category> Categories { get; set; }
 
-        public ConnectionContext(DbContextOptions<ConnectionContext> options ): base(options)
+        public ConnectionContext(DbContextOptions<ConnectionContext> options):base(options)
         {
 
         }

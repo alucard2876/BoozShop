@@ -1,14 +1,15 @@
-﻿using System;
+﻿using DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace DataLayer.Models
+namespace BuisnesLayer.Interfaces
 {
     public interface ICategoryRepository
     {
-        Category GetCategory(int id);
+        Task<Category> GetCategory(int id);
         IEnumerable<Category> GetAllCategories();
         void AddCategorie(Category category);
-        void AddStuffToCategorie(Stuff stuff, int categoryId);
     }
 }
